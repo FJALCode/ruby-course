@@ -36,6 +36,10 @@
     * [String.to_a](#stringto_a)
     * [String.eql](#stringeql)
     * [String.equal](#stringequal)
+    * [String.gsub](#stringgsub)
+    * [String.split](#stringsplit)
+
+
 
 
 
@@ -216,7 +220,7 @@ calificaciones = [10, 7, 8, 9, 5, 6, 4]
 puts calificaciones.sample #output random
 ```
 ## Rangos
-Para un rango de valores usamos `(a..b)` donde a y b son variables. Los rangos NO son arreglos
+Para un rango de valores usamos `(a..b)` o `(a...b)` donde a y b son variables, y los 2 puntos indican que incluyan el ultimo valor `b` mientras que con los 3 puntos no lo incluyen. Los rangos NO son arreglos
 
 ```rb
 (1..10).each do |numero|
@@ -263,6 +267,11 @@ suma = 0
 calificaciones.each do |calificacion|
     puts "El valor #{calificacion}"
 end
+
+# El También puede escribirse
+calificaciones.each { |calificacion|
+    puts "El valor #{calificacion}"
+}
 
 # El bucle for en una linea
 calificaciones.each {|calificacion| puts "El valor #{calificacion}"}
@@ -547,6 +556,23 @@ Un hash no es más que una colección de datos en donde cada valor está asociad
 tutor = {"nombre" => "Fernando", "edad" => 23, 20=>"Veinte", [] => "arreglo"}
 puts tutor
 # Output {"nombre" => "Fernando", "edad" => 23, 20=>"Veinte", [] => "arreglo"}
+```
+Podemos crear un hash usando
+```rb
+tutor = Hash.new
+puts tutor
+# Output {}
+```
+
+Podemos asignar un valor por defecto a nuestro hash de modo que si se busca un key que no exista arroje dicho valor 
+```rb
+h = Hash.new("nothing here")
+ 
+puts h
+# {}
+ 
+puts h["kitty"]
+# nothing here
 ```
 Si queremos acceder a un valor especifico del hash basta con hacer
 ```rb
@@ -873,3 +899,18 @@ c = a.equal?(b)
 puts "La respuesta es #{c}" # Retorna false
 ```
 
+#### String.gsub
+Método que reemplaza las coincidencias en el string
+```rb
+a = 'hola'
+c = a.gsub!(/h/,"p");
+puts "La respuesta es #{c}" # Retorna pola
+```
+
+#### String.split
+Método que convierte un string en un array separandolo por el valor indicado en el split
+```rb
+a = 'hola que tal'
+a.split(",")
+puts "La respuesta es #{a}" # Retorna ["hola", "que", "tal"]
+```
