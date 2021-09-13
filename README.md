@@ -3,10 +3,13 @@
 * [Proyecto de Ruby](#proyecto-de-ruby)
 * [Combados básicos](#combados-básicos)
 * [Variables](#variables)
+* [Prints Code](#prints-code)
 * [Comentarios](#comentarios)
+* [Single Quotes vs Double Quotes](#single-quotes-vs-double-quotes)
 * [Operadores Aritméticos](#operadores-aritméticos)
 * [Operadores Comparativos](#operadores-comparativos)
 * [Operadores Lógicos](#operadores-lógicos)
+* [Operador Splat](#operador-splat)
 * [Condicionales](#condicionales)
 * [Case](#case)
 * [Array](#array)
@@ -22,15 +25,18 @@
 * [Cadenas](#cadenas)
 * [Hashes](#hashes)
 * [Simbolos](#simbolos)
-
 * [I/O](#io)
+* [Clases](#clases)
+    * [Clases.constructor](#clasesconstructor)
+
 * [Métodos](#métodos)
     * [Definir un Método](#definir-un-método)
-    * [String.upcase ](#stringupcase)
-    * [String.downcase ](#stringdowncase)
-    * [String.capitalize ](#stringcapitalize)    
-    * [String.length ](#stringlength)
-    * [String.reverse ](#stringreverse)
+    * [String.class](#stringclass)
+    * [String.upcase](#stringupcase)
+    * [String.downcase](#stringdowncase)
+    * [String.capitalize](#stringcapitalize)    
+    * [String.length](#stringlength)
+    * [String.reverse](#stringreverse)
     * [String.to_i](#stringto_i)
     * [String.to_f](#stringto_f)
     * [String.to_a](#stringto_a)
@@ -38,9 +44,7 @@
     * [String.equal](#stringequal)
     * [String.gsub](#stringgsub)
     * [String.split](#stringsplit)
-
-
-
+    
 
 
 
@@ -49,9 +53,7 @@
 
 ## Combados básicos
 *   **`ruby app-name`:** Permite la ejecución de un archivo .rb
-*   **`ng serve`:** Permite instanciar el proyecto de angular en el puerto establecido por defecto levanta en el `4200`. 
-    * Usamos la bandera **`-p`** para indicar el puerto donde deseamos que abra `ng serve -p 4201`.
-    * Usamos la bandera **`-o`** para indicar que una vez que cargue, abra el navegador por defecto `ng serve -o`.
+
 
 ## Variables
 Para ruby no hay necesidad de declarar una variable basta con nombrarla y asignarle un valor y el interprete deduce que tipo de variable es
@@ -59,8 +61,27 @@ Para ruby no hay necesidad de declarar una variable basta con nombrarla y asigna
 nombre = "Fernando" #string
 edad = 23 #integer
 precio = 20.5 #float
-isStrange = true #boolear
+is_strange = true #boolear
 ```
+Las variables en ruby se escribo con la modalidad `snake_case`, es decir "palabras en letras minúsculas separadas por guión bajo"
+```rb
+first_name
+second_name
+last_name
+full_name
+```
+
+## Prints Code
+Para imprimir por consola se puede usar el comando `puts` o `print`, la diferencia de una con la otra se basa en que print no genera un salto de linea al imprimir a diferencia de puts
+```rb
+print "Fernando" 
+print "Antúnez" 
+# El resultante FernandoAntúnez
+puts "Fernando" 
+puts "Antúnez" 
+# El resultante Fernando \nAntúnez \n
+```
+
 
 ## Comentarios
 Para comentar en el código existen 2 manera
@@ -93,6 +114,16 @@ puts 12.2312.to_i # Transforma a tipo int, daría 12.2
 puts -10.abs # Retorna el valor absoluto, daría 10
 ```
 
+## Single Quotes vs Double Quotes
+La diferencia principal entre usar comillas simples `''` y comillas dobles `""` al momento de usar en Ruby, radica que con comillas simples no se puede usar interpolación (disponer de una expresión dentro del String para que el interprete de Ruby la procese para obtener el String definitivo.) de los elementos
+
+```rb
+nombre = "juan"
+edad = 24
+puts "#{nombre} tiene #{edad} años" # juan tiene 24 años
+puts '#{nombre} tiene #{edad} años' # #{nombre} tiene #{edad} años
+```
+
 ## Operadores Comparativos
 Existen diversos tipos de operadores para comparar
 ```rb
@@ -113,6 +144,26 @@ a&&b # Evalua 'a' y 'b'
 a||b # Evalua 'a' o 'b'
 !a # Evalua el inverso de 'a' 
 ```
+
+## Operador Splat
+El operador Splat se usa siempre que no se desee especificar la cantidad de argumentos que se recibirá, se puede identificar ya que se coloca un `*` antes del argumento. Basicamente el operador Splat convertira los parámetros en un Array
+```rb
+def go(x, *args)
+  puts args.inspect
+end
+
+go("a", "b", "c")
+```
+Si deseamos usar hashes debemos colocar dos asteriscos
+```rb
+def go(**params)
+  puts params.inspect
+end
+
+go(x: 100, y: 200)
+```
+
+
 
 ## Condicionales
 Para el condicional IF - else tenemos
@@ -765,6 +816,35 @@ puts "Hola #{nombre} #{apellido}"
 *   No es necesario escribir `;` al final de cada linea aunque el compilador puede ignorar que lo hagas
 *   Los paréntesis en Ruby al pasar una función o método son opcionales
 
+## Clases
+
+En ruby similar a otros lenguajes de programación orientados a objetos se pueden instanciar las clases e inicializarlas con el método `new`
+```rb
+class Video
+    attr_accesor :minutes, :title
+
+    def play
+    end
+
+    def pause
+    end
+end
+
+video_31_test = Video.new
+```
+
+#### Clases.constructor
+En ruby al constructor de las clases se le denomina bajo el método `initialize` y basta con colocarlo para al momento de instanciar la clase tener que llamarla con los argumentos que este deba recibir
+
+```rb
+class Video   
+    def initialize(title)
+    end
+end
+
+video_31_test = Video.new("title de initialize")
+```
+
 ## Métodos
 Existen infinidades de métodos que se pueden ejecutar en Ruby, para verlos los disponibles podemos ejecutar `"".methods`
 
@@ -806,6 +886,14 @@ def square(x)
     x * x 
 end
 
+```
+
+#### String.class 
+Método que retorna el tipo de dato
+
+```rb
+nombre = "Fernando"
+puts nombre.class # string
 ```
 
 
